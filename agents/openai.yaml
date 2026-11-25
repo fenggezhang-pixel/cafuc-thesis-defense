@@ -1,0 +1,4 @@
+interface:
+  display_name: "中飞院硕士论文答辩"
+  short_description: "从十四款中飞院主题选择答辩版式，匹配校标、双版讲稿与原文截图提示"
+  default_prompt: "用 $cafuc-thesis-defense 按我选的主题制作中飞院答辩 PPT，匹配校标，并配双版讲稿与原文核查提示。"

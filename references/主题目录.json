@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "name": "飞行弧线红",
+    "slug": "flight-red",
+    "source": "中飞院官方PPT1.pptx",
+    "cover": "校红",
+    "body": "校红",
+    "chapter": "校红",
+    "use": "飞行技术、训练实践与工程应用答辩",
+    "file": "01_飞行弧线红.pptx"
+  },
+  {
+    "id": 2,
+    "name": "飞行弧线蓝",
+    "slug": "flight-blue",
+    "source": "中飞院官方PPT2.pptx",
+    "cover": "校蓝",
+    "body": "校蓝",
+    "chapter": "校蓝",
+    "use": "算法、控制与工程验证类答辩",
+    "file": "02_飞行弧线蓝.pptx"
+  },
+  {
+    "id": 3,
+    "name": "航站青蓝",
+    "slug": "terminal",
+    "source": "中飞院官方PPT3.pptx",
+    "cover": "校蓝",
+    "body": "校蓝",
+    "chapter": "校蓝",
+    "use": "运行保障、系统设计与应用汇报",
+    "file": "03_航站青蓝.pptx"
+  },
+  {
+    "id": 4,
+    "name": "礼堂朱红",
+    "slug": "ceremony",
+    "source": "中飞院官方PPT4.pptx",
+    "cover": "反白",
+    "body": "校红",
+    "chapter": "反白",
+    "use": "正式开题、毕业答辩与院内评审",
+    "file": "04_礼堂朱红.pptx"
+  },
+  {
+    "id": 5,
+    "name": "暮紫图书馆",
+    "slug": "library-violet",
+    "source": "中飞院官方PPT5.pptx",
+    "cover": "校蓝",
+    "body": "校蓝",
+    "chapter": "校蓝",
+    "use": "学科交叉、综述与学术研讨",
+    "file": "05_暮紫图书馆.pptx"
+  },
+  {
+    "id": 6,
+    "name": "暖橙图书馆",
+    "slug": "library-amber",
+    "source": "中飞院官方PPT6.pptx",
+    "cover": "校红",
+    "body": "校红",
+    "chapter": "校红",
+    "use": "实践项目、阶段进展与成果汇报",
+    "file": "06_暖橙图书馆.pptx"
+  },
+  {
+    "id": 7,
+    "name": "云纹深蓝",
+    "slug": "cloud-blue",
+    "source": "中飞院官方PPT7.pptx",
+    "cover": "反白",
+    "body": "校蓝",
+    "chapter": "反白",
+    "use": "系统架构、模型与指标较多的报告",
+    "file": "07_云纹深蓝.pptx"
+  },
+  {
+    "id": 8,
+    "name": "晨光礼堂",
+    "slug": "dawn",
+    "source": "中飞院官方PPT8.pptx",
+    "cover": "反白",
+    "body": "校红",
+    "chapter": "校红",
+    "use": "教学、学术交流与专题答辩",
+    "file": "08_晨光礼堂.pptx"
+  },
+  {
+    "id": 9,
+    "name": "春绿校园",
+    "slug": "spring",
+    "source": "绿色.pptx",
+    "cover": "反白",
+    "body": "校红",
+    "chapter": "反白",
+    "use": "校园调研、场景研究与应用成果",
+    "file": "09_春绿校园.pptx"
+  },
+  {
+    "id": 10,
+    "name": "晴空航迹",
+    "slug": "sky",
+    "source": "蓝色.pptx",
+    "cover": "校蓝",
+    "body": "校蓝",
+    "chapter": "校蓝",
+    "use": "航空应用、实验过程与图像展示",
+    "file": "10_晴空航迹.pptx"
+  },
+  {
+    "id": 11,
+    "name": "银杏秋金",
+    "slug": "ginkgo",
+    "source": "黄色.pptx",
+    "cover": "反白",
+    "body": "校红",
+    "chapter": "反白",
+    "use": "人文管理、调查与案例研究",
+    "file": "11_银杏秋金.pptx"
+  },
+  {
+    "id": 12,
+    "name": "校园夜景",
+    "slug": "night",
+    "source": "黑色.pptx",
+    "cover": "反白",
+    "body": "反白",
+    "chapter": "反白",
+    "use": "夜景摄影、可视化与短时成果陈述",
+    "file": "12_校园夜景.pptx"
+  },
+  {
+    "id": 13,
+    "name": "校园全景中文",
+    "slug": "panorama-cn",
+    "source": "中飞院答辩模板.pptx",
+    "cover": "标准彩色",
+    "body": "标准彩色",
+    "chapter": "标准彩色",
+    "use": "阶段检查、工作进展与中文答辩",
+    "file": "13_校园全景中文.pptx"
+  },
+  {
+    "id": 14,
+    "name": "校园全景双语",
+    "slug": "panorama-en",
+    "source": "杜意_基于计算机视觉的飞行员动作识别(2).pptx",
+    "cover": "标准彩色",
+    "body": "标准彩色",
+    "chapter": "标准彩色",
+    "use": "有正式英文题名、需要中英章节导航的答辩",
+    "file": "14_校园全景双语.pptx"
+  }
+]
