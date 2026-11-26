@@ -9,12 +9,15 @@ from zipfile import ZipFile
 
 NS = {'p': 'http://schemas.openxmlformats.org/presentationml/2006/main',
       'a': 'http://schemas.openxmlformats.org/drawingml/2006/main',
+      'asvg': 'http://schemas.microsoft.com/office/drawing/2016/SVG/main',
       'r': 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'}
 
-# Original school identity elements on the two campus-panorama covers.
+# Original and transparent renditions of the two separate panorama identity elements.
 CAMPUS_PICTURE_MARKS = {
-    '校徽': bytes.fromhex('61f6c1f481535431b3d89dfd6ab430bcd5a03688194c104824a62b7dbece8f54'),
-    '中英文校名': bytes.fromhex('2683abfc85d10db4d9e29913018548ee280a9ab59617103aa007406f2258278b'),
+    '校徽': {bytes.fromhex('61f6c1f481535431b3d89dfd6ab430bcd5a03688194c104824a62b7dbece8f54'),
+             bytes.fromhex('d8b0c2bbefc40a71a5281136f8f3e5ce539ccb4684fa65615c39e7dfae6ac2e2')},
+    '中英文校名': {bytes.fromhex('2683abfc85d10db4d9e29913018548ee280a9ab59617103aa007406f2258278b'),
+                   bytes.fromhex('6c9b24b6038f3eaf8cc5fcb7c4fa73558d8764eb2c5c337a3598055317f2c406')},
 }
 CAMPUS_VECTOR_MARK = tuple(bytes.fromhex(s) for s in (
     '59870d520f86d7fa3c295a60e2aac9d63b12880067169fa031b9f3e51dc82b5b',
@@ -65,24 +68,29 @@ def inspect_slide(z, slide, fingerprints, check_notes, approved_marks, alternate
                 levels.extend(related(relations(z, layout), 'slideMaster'))
     images = set()
     found_marks = set()
+    has_logo_backing = False
     for level in levels:
         rels = relations(z, level)
         root = ET.fromstring(z.read(level))
         found_marks.update(vector_marks(root))
-        for blip in root.findall('.//a:blip', NS):
+        if root.find(".//p:sp/p:nvSpPr/p:cNvPr[@name='底版·校标衬底']", NS) is not None:
+            has_logo_backing = True
+        for blip in root.findall('.//a:blip', NS) + root.findall('.//asvg:svgBlip', NS):
             rid = blip.get('{'+NS['r']+'}embed')
             if rid in rels and rels[rid][0] == 'image':
                 images.add(hashlib.sha256(z.read(rels[rid][1])).digest())
     alternate_images = alternate_images or {}
     missing = [] if found_marks & approved_marks else [
         name for name, sha in fingerprints.items()
-        if sha not in images and alternate_images.get(name) not in images
+        if sha not in images and images.isdisjoint(alternate_images.get(name, ()))
     ]
-    brands = {name for name, digest in (brand_images or {}).items() if digest in images}
+    brands = {name for name, digests in (brand_images or {}).items() if not images.isdisjoint(digests)}
     if expected:
         missing = [] if brands == {expected} else [f'主题标识应为{expected}，实际识别到{"/".join(sorted(brands)) or "无"}']
     elif brands:
         missing = []
+    if has_logo_backing:
+        missing.append('请移除校标衬底并使用透明标识')
     if check_notes:
         parts = related(own, 'notesSlide')
         note = ''.join(n.text or '' for part in parts for n in ET.fromstring(z.read(part)).findall('.//a:t', NS))
@@ -111,7 +119,9 @@ def main():
     approved_marks = set()
     alternate_images = {}
     if args.seal == assets/'校徽.png' and args.wordmark == assets/'中英文校名.png':
-        brand_images = {f.stem:hashlib.sha256(f.read_bytes()).digest() for f in (assets/'主题标识').glob('*.png')}
+        for f in (assets/'主题标识').glob('*'):
+            if f.suffix.lower() in ('.png', '.svg'):
+                brand_images.setdefault(f.stem, set()).add(hashlib.sha256(f.read_bytes()).digest())
         if (assets/'中飞院答辩参考封面_万瑞飞机版.pptx').is_file():
             with ZipFile(assets/'中飞院答辩参考封面_万瑞飞机版.pptx') as alternate:
                 root = ET.fromstring(alternate.read('ppt/slides/slide1.xml'))
@@ -137,7 +147,7 @@ def main():
                 expected = expected_theme[key]
             issues=inspect_slide(z,slide,imgs,args.dual_notes,approved_marks,alternate_images,brand_images,expected)
             if issues:
-                print(f'第 {i} 页缺少 '+ '、'.join(issues))
+                print(f'第 {i} 页需检查 ' + '、'.join(issues))
                 bad+=1
         print(f'检查 {len(ids)} 页；发现 {bad} 页需要复查。')
         return int(bool(bad))
